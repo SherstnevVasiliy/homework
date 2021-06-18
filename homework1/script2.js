@@ -4,25 +4,22 @@ function summ(a, b) {
     return a + b;
   }
 function memoize(func,timer) {
-    let cache = {};
     let result
+    let map = new Map();
 
     return (value1, value2) => {
-        if (value1 in cache && value2 in cache) {
-            console.log('Значение взято из кеша', result)
-            return cache['result'];
+        if (map.has(`${value1},${value2}`)) {
+            console.log('Значение взято из кеша', map.get(`${value1},${value2}`))
+            return map.get(`${value1},${value2}`);
         }
         result = func(value1, value2);
-        cache = {}
-        cache[value1] = value1;
-        cache[value2] = value2;
-        cache['result'] = result;
+        map.set(`${value1},${value2}`, result)
         console.log('Вычисляем новое значение', result)
-        console.log('Сохраняем кеш', cache)
+        console.log('Сохраняем кеш', map)
         if (timer) {
             setTimeout(() => {
-                cache = {}
-                console.log('Кеш очищен')
+                console.log(`Кеш для значений ${value1},${value2} очищен `)
+                map.delete(`${value1},${value2}`)
             }, timer);
         }
         return result;
@@ -40,12 +37,12 @@ setTimeout(() => {
   
 setTimeout(() => {
         memoizeSumm(3, 5);
-    }, 11000);
+    }, 5000);
 
 setTimeout(() => {
         memoizeSumm(3, 5);
-    }, 15000);
+    }, 8000);
 
 setTimeout(() => {
-        memoizeSumm(3, 5);
-    }, 22000);
+        memoizeSumm(1, 3);
+    }, 9000);
