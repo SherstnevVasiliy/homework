@@ -1,14 +1,18 @@
 console.log('Задача 1')
 
 function curr(func) {
-    return function(value1) {
-      return function(value2) {
-          return function(value3) {
-            return func(value1, value2, value3);
-          }
-      };
-    };
-  }
+
+  return function curried(...args) {
+    if (args.length >= func.length) {
+      return func.apply(this, args);
+    } else {
+      return function(...args2) {
+        return curried.apply(this, args.concat(args2));
+      }
+    }
+  };
+
+}
   
   function sum(a, b, c) {
     return a + b + c;

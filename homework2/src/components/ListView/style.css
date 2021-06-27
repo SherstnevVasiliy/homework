@@ -1,0 +1,7 @@
+.item-wrap {
+    display: flex;
+}
+
+p {
+    border: solid 1px;
+}
