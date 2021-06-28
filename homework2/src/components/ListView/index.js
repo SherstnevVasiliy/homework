@@ -1,5 +1,4 @@
 import React from 'react'
-import { v4 as uuidv4 } from 'uuid';
 import Button from '../UI/Button';
 import './style.css'
 
@@ -9,7 +8,7 @@ function ListView({data, onRemove}) {
                 {
                     data.map(item => {
                         return (
-                            <div key={uuidv4()} className="item-wrap">
+                            <div key={item.id} className="item-wrap">
                                 <p>{item.firstName}</p>
                                 <p>{item.lastName}</p>
                                 <Button
