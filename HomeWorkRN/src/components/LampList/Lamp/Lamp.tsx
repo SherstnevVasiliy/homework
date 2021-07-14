@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {ILampListProps} from '../../../models/lampList/lampListInterface';
+import {ILampProps} from '../../../models/lampList/lampListInterface';
+import Counter from '../../Counter/Counter';
 
 const Lamp = ({
-  id,
   title,
   brend,
   typeItem,
@@ -14,21 +13,28 @@ const Lamp = ({
   light,
   image,
   price,
-}: ILampListProps) => {
+  clickHandler,
+}: ILampProps) => {
+  const changeHandler = useCallback(
+    (count: number) => {
+      if (clickHandler) {
+        clickHandler(title, count);
+      }
+    },
+    [clickHandler, title],
+  );
   return (
     <View style={styles.lampWrapper}>
       <View style={styles.priceContainer}>
         <Text style={styles.price}>{`${price}p`}</Text>
         <Image source={{uri: image}} style={styles.img} />
+        <Counter clickHandler={changeHandler} />
       </View>
       <View style={styles.descriptionsContainer}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.descriptions}>{`Брэнд: ${brend}`}</Text>
-        <Text style={styles.descriptions}>{`Тип товара: ${typeItem}`}</Text>
-        <Text style={styles.descriptions}>{`Технология: ${technology}`}</Text>
-        <Text style={styles.descriptions}>{`Мощность ${power},Вт`}</Text>
-        <Text style={styles.descriptions}>{`Тип цоколя: ${lampBase}`}</Text>
-        <Text style={styles.descriptions}>{`Свет: ${light}`}</Text>
+        <Text style={styles.descriptions}>
+          {`\nБрэнд: ${brend}\nТип товара: ${typeItem}\nТехнология: ${technology}\nМощность ${power},Вт\nТип цоколя: ${lampBase}\nСвет: ${light}`}
+        </Text>
       </View>
     </View>
   );
@@ -63,6 +69,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'grey',
     paddingVertical: 1,
+    alignItems: 'center',
+    textAlign: 'center',
   },
   price: {
     fontSize: 20,

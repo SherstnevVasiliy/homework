@@ -1,5 +1,5 @@
-export interface ILampListProps {
-  id: number;
+export interface ILampProps {
+  id?: number;
   title: string;
   brend: string;
   typeItem: string;
@@ -9,8 +9,10 @@ export interface ILampListProps {
   light: string;
   image: string;
   price: number;
+  clickHandler: (title: string, count: number) => void;
 }
 
-export interface ILampProps {
-  lampList: ILampListProps[];
+export interface ILampListProps {
+  lampList: ILampProps[];
+  clickHandler: (title: string, count: number) => void;
 }

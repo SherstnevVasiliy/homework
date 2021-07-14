@@ -1,6 +1,6 @@
-import {ILampListProps} from '../models/lampList/lampListInterface';
+import {ILampProps} from '../models/lampList/lampListInterface';
 
-export const lampList: ILampListProps[] = [
+export const lampList: ILampProps[] = [
   {
     id: 1,
     title:
